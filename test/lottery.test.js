@@ -102,28 +102,20 @@ describe('Lottery', () => {
             const initialBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
             const initialBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
 
-            const balance = await lottery.methods.getBalance().call({ from: accounts[0] });
-            console.log(balance);
-
-            await lottery.methods.pickWinner().call({ from: accounts[0], gas: '1000000' });
-
-            const winner = await lottery.methods.winner().call({ from: accounts[0] });
-            console.log('****winner is: ', winner);
-
+            await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
+            
             const finalBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
             const finalBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
-
-            const newBalance = await lottery.methods.getBalance().call({ from: accounts[0] });
-            console.log(newBalance);
-
-            console.log('difference of account 1: ', finalBalanceAcct1 - initialBalanceAcct1);
-            console.log('difference of account 2: ', finalBalanceAcct2 - initialBalanceAcct2);
 
             assert(finalBalanceAcct1 > initialBalanceAcct1 || finalBalanceAcct2 > initialBalanceAcct2);
         });
 
-        // it('resets the players array after a winner is paid', async () => {
-
-        // });
+        it('resets the players array after a winner is paid', async () => {
+            const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
+            assert(2, players.length);
+            await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
+            const emptyPlayers = await lottery.methods.getPlayers().call({ from: accounts[0] });
+            assert(0, emptyPlayers.length);
+        });
     });
 });

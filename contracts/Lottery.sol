@@ -4,8 +4,7 @@ pragma solidity ^0.8.16;
 
 contract Lottery {
     address public manager;
-    address payable []players;
-    address public winner;
+    address payable[] public players;
 
     constructor() {
         manager = msg.sender;
@@ -24,7 +23,7 @@ contract Lottery {
 
     function pickWinner() public payable onlyManager {
         uint index = randomNumber() % players.length;
-        winner = players[index];
+
         (bool sent,) = players[index].call{value: address(this).balance}("");
         require(sent, "Failed to send Ether");
 
@@ -32,7 +31,7 @@ contract Lottery {
     }
 
     function randomNumber() public view returns(uint) {
-        return uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, msg.sender)));
+        return uint(keccak256(abi.encodePacked(block.timestamp, block.difficulty, this)));
     }
 
     function playerAlreadyEntered(address element) private view returns(bool) {
