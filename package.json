@@ -5,6 +5,8 @@
   "main": "index.js",
   "scripts": {
     "compile": "node compile.js",
+    "deploy-inbox": "node deploy.js Inbox",
+    "deploy-lottery": "node deploy.js Lottery",
     "test": "mocha"
   },
   "author": "",
