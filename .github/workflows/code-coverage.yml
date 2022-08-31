@@ -32,8 +32,9 @@ jobs:
     - name: Upload coverage to Codecov
       uses: codecov/codecov-action@v3
       with:
-        directory: ./coverage/reports/
+        directory: ./.nyc_output
         fail_ci_if_error: true
+        files: ./*.json
         flags: unittests
         name: codecov-umbrella
         verbose: true
