@@ -7,7 +7,8 @@
     "compile": "node compile.js",
     "deploy-inbox": "node deploy.js Inbox",
     "deploy-lottery": "node deploy.js Lottery",
-    "test": "mocha"
+    "test": "mocha",
+    "test-coverage": "nyc --reporter=text mocha"
   },
   "author": "",
   "license": "ISC",
@@ -18,5 +19,8 @@
     "mocha": "^10.0.0",
     "solc": "^0.8.16",
     "web3": "^1.7.5"
+  },
+  "devDependencies": {
+    "nyc": "^15.1.0"
   }
 }
