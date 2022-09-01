@@ -1,4 +1,9 @@
 # blockchain-sandbox
+[![codecov](https://codecov.io/gh/vanessaholland/blockchain-sandbox/branch/main/graph/badge.svg?token=3FH7CGYTTN)](https://codecov.io/gh/vanessaholland/blockchain-sandbox)
+
+[![Node.js CI](https://github.com/vanessaholland/blockchain-sandbox/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/vanessaholland/blockchain-sandbox/actions/workflows/code-coverage.yml)
+
+---
 
 ## compiling and deploying 
 _will look into how to deploy all contracts at one time in the future._ 
