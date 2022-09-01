@@ -7,6 +7,7 @@ node_modules
 .env.local
 .env.*.local
 .nyc_output
+/coverage
 
 # Log files
 npm-debug.log*

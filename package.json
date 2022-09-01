@@ -8,7 +8,7 @@
     "deploy-inbox": "node deploy.js Inbox",
     "deploy-lottery": "node deploy.js Lottery",
     "test": "mocha",
-    "test-coverage": "jest --coverage"
+    "test-coverage": "jest"
   },
   "author": "",
   "license": "ISC",
