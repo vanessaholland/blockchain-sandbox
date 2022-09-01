@@ -98,24 +98,24 @@ describe('Lottery', () => {
             }
         });
 
-        it('transfers the balance to the winner', async () => {
-            const initialBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
-            const initialBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
+        // it('transfers the balance to the winner', async () => {
+        //     const initialBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
+        //     const initialBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
 
-            await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
+        //     await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
             
-            const finalBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
-            const finalBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
+        //     const finalBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
+        //     const finalBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
 
-            assert(finalBalanceAcct1 > initialBalanceAcct1 || finalBalanceAcct2 > initialBalanceAcct2);
-        });
+        //     assert(finalBalanceAcct1 > initialBalanceAcct1 || finalBalanceAcct2 > initialBalanceAcct2);
+        // });
 
-        it('resets the players array after a winner is paid', async () => {
-            const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
-            assert(2, players.length);
-            await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
-            const emptyPlayers = await lottery.methods.getPlayers().call({ from: accounts[0] });
-            assert(0, emptyPlayers.length);
-        });
+        // it('resets the players array after a winner is paid', async () => {
+        //     const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
+        //     assert(2, players.length);
+        //     await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
+        //     const emptyPlayers = await lottery.methods.getPlayers().call({ from: accounts[0] });
+        //     assert(0, emptyPlayers.length);
+        // });
     });
 });
