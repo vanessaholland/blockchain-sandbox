@@ -1,5 +1,4 @@
 const HDWalletProvider = require('@truffle/hdwallet-provider');
-const { flushSync } = require('react-dom');
 const Web3 = require('web3');
 const contracts = require('./compile');
 const fs = require('fs');
