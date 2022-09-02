@@ -3,6 +3,8 @@
 [![codecov](https://codecov.io/gh/vanessaholland/blockchain-sandbox/branch/main/graph/badge.svg?token=3FH7CGYTTN)](https://codecov.io/gh/vanessaholland/blockchain-sandbox)
 [![Node.js CI](https://github.com/vanessaholland/blockchain-sandbox/actions/workflows/code-coverage.yml/badge.svg)](https://github.com/vanessaholland/blockchain-sandbox/actions/workflows/code-coverage.yml)
 
+Following a [tutorial](https://www.udemy.com/course/ethereum-and-solidity-the-complete-developers-guide/), but making tweaks to use newer versions of solidity, web3, solc, webpack, etc., and ganache instead of infura.\Also taking steps to not hard-code vars and compiled contracts.\Will expand functionality from here. 
+
 ---
 
 ## dependencies
