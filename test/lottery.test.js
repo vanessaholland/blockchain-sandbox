@@ -33,13 +33,16 @@ describe('Lottery', () => {
     describe('enter', () => {
         it('adds a player to the array', async () => {
             const playerToEnter = accounts[1];
+            const initialBalance = await web3.eth.getBalance(accounts[1]); 
             
             await lottery.methods.enter().send({ 
                 from: playerToEnter,
-                value: web3.utils.toWei('0.02', 'ether')
+                value: 10000000000000000
             });
 
             const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
+            const finalBalance = await web3.eth.getBalance(accounts[1]);
+            console.log('***** difference: ', initialBalance - finalBalance);
             
             assert.equal(1, players.length);
             assert.equal(players[0], playerToEnter);
@@ -62,13 +65,13 @@ describe('Lottery', () => {
             
             await lottery.methods.enter().send({ 
                 from: playerToEnter,
-                value: web3.utils.toWei('0.02', 'ether')
+                value: 10000000000000000
             });
 
             try {
                 await lottery.methods.enter().send({ 
                     from: playerToEnter,
-                    value: web3.utils.toWei('0.02', 'ether')
+                    value: 10000000000000000
                 });
                 assert(false);
             } catch (err) {
@@ -81,11 +84,11 @@ describe('Lottery', () => {
         beforeEach(async () => {
             await lottery.methods.enter().send({ 
                 from: accounts[1],
-                value: web3.utils.toWei('1', 'ether')
+                value: 10000000000000000
              });
              await lottery.methods.enter().send({ 
                 from: accounts[2],
-                value: web3.utils.toWei('1', 'ether')
+                value: 10000000000000000
              });
         });
 
@@ -98,24 +101,25 @@ describe('Lottery', () => {
             }
         });
 
-        // it('transfers the balance to the winner', async () => {
-        //     const initialBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
-        //     const initialBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
+        it('transfers the balance to the winner', async () => {
+            const initialBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
+            const initialBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
 
-        //     await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
+            await lottery.methods.pickWinner().call({ from: accounts[0] });
             
-        //     const finalBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
-        //     const finalBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
+            const finalBalanceAcct1 = await web3.eth.getBalance(accounts[1]);
+            const finalBalanceAcct2 = await web3.eth.getBalance(accounts[2]);
 
-        //     assert(finalBalanceAcct1 > initialBalanceAcct1 || finalBalanceAcct2 > initialBalanceAcct2);
-        // });
+            assert(finalBalanceAcct1 > initialBalanceAcct1 || finalBalanceAcct2 > initialBalanceAcct2);
+        });
 
-        // it('resets the players array after a winner is paid', async () => {
-        //     const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
-        //     assert(2, players.length);
-        //     await lottery.methods.pickWinner().call({ from: accounts[0], gas: '3000000' });
-        //     const emptyPlayers = await lottery.methods.getPlayers().call({ from: accounts[0] });
-        //     assert(0, emptyPlayers.length);
-        // });
+        it('resets the players array after a winner is paid', async () => {
+            const players = await lottery.methods.getPlayers().call({ from: accounts[0] });
+            assert.equal(2, players.length);
+            await lottery.methods.pickWinner().call({ from: accounts[0] });
+            const emptyPlayers = await lottery.methods.getPlayers().call({ from: accounts[0] });
+            console.log('**** emptyPlayers length', emptyPlayers.length);
+            assert.equal(0, emptyPlayers.length);
+        });
     });
 });
