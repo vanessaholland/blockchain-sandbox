@@ -11,7 +11,7 @@ class LotteryEntry extends Component {
                 <h3>Costs {web3.utils.fromWei(this.props.ticketPriceInWei, 'ether')} Ether to enter</h3>
                 <Form.Group className="mb-3" controlId="formAccount">
                     <Form.Label>Account to enter with</Form.Label>
-                    <Form.Control type="email" placeholder="0x0000" onChange={this.props.onChange}/>
+                    <Form.Control type="text" placeholder="0x0000" onChange={this.props.onChange}/>
                     <Form.Text className="text-muted">
                     We'll never share your info with anyone else.
                     </Form.Text>

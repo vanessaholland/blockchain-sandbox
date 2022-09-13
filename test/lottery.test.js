@@ -59,25 +59,6 @@ describe('Lottery', () => {
                 assert(err);
             }
         });
-
-        it('restricts a player from entering twice', async () => {
-            const playerToEnter = accounts[1];
-            
-            await lottery.methods.enter().send({ 
-                from: playerToEnter,
-                value: 10000000000000000
-            });
-
-            try {
-                await lottery.methods.enter().send({ 
-                    from: playerToEnter,
-                    value: 10000000000000000
-                });
-                assert(false);
-            } catch (err) {
-                assert(err);
-            }
-        });
     });
 
     describe('pickWinner', () => {

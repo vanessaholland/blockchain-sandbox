@@ -13,11 +13,8 @@ contract Lottery {
     }
 
     function enter() public payable {
-        // require(msg.value == .01 ether, "Cost to enter is .01 ether.");
-        // require(playerEntered(msg.sender) == false, "You can only enter once.");
-
+        require(msg.value == .01 ether, "Cost to enter is .01 ether.");
         players.push(payable(msg.sender));
-        // require(playerEntered(msg.sender) == true, "Sorry something went wrong, try again.");
     }
 
     function getPlayers() public view returns(address payable[] memory) {
@@ -27,9 +24,8 @@ contract Lottery {
     function pickWinner() public payable onlyManager {
         uint index = randomNumber() % players.length;
 
-        // (bool sent,) = players[index].call{value: address(this).balance}("");
-        // require(sent, "Failed to send Ether");
-        players[index].transfer(address(this).balance);
+        (bool sent,) = players[index].call{value: address(this).balance}("");
+        require(sent, "Failed to send Ether");
 
         currentWinner = players[index];
 
@@ -46,15 +42,6 @@ contract Lottery {
 
     function getBalance() public view returns(uint) {
         return address(this).balance;
-    }
-
-    function playerEntered(address element) private view returns(bool) {
-        for (uint i = 0 ; i < players.length; i++) {
-            if (element == players[i]) {
-                return true;
-            }
-        }
-        return false;
     }
 
     modifier onlyManager() {
