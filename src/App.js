@@ -1,6 +1,6 @@
 import "./App.css";
 import React from "react";
-import web3 from "./web3";
+import web3 from "../ethereum/web3";
 import lottery from "./lottery";
 import LotteryInfo from "./components/lottery_info";
 import LotteryEntry from "./components/lottery_entry";

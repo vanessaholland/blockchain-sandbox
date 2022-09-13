@@ -1,5 +1,5 @@
 import React from "react";
-import web3 from "../web3";
+import web3 from "../../ethereum/web3";
 
 const LotteryInfo = (props) =>  {
     if(!props.players.length) {
