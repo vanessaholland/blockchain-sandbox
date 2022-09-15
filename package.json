@@ -5,8 +5,8 @@
   "private": true,
   "main": "index.js",
   "scripts": {
-    "compile": "node compile.js",
-    "deploy-inbox": "node deploy.js Inbox",
+    "compile": "node ./ethereum/compile.js",
+    "deploy": "node ./ethereum/deploy.js",
     "deploy-lottery": "node deploy.js Lottery",
     "test": "jest ./test",
     "start": "react-app-rewired start",
