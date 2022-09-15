@@ -27,6 +27,7 @@ contract Campaign {
 
     Request[] public requests;
     address public manager;
+    mapping(address => uint) public contributors;
     mapping(address => bool) public approvers;
     uint public minimumContribution;
     uint public numberOfApprovers;
@@ -37,9 +38,11 @@ contract Campaign {
     }
 
     function contribute() public payable {
-        require(msg.value >= minimumContribution);
-        approvers[msg.sender] = true;
-        numberOfApprovers++;
+        contributors[msg.sender] = msg.value;
+        if (msg.value >= minimumContribution) {
+            approvers[msg.sender] = true;
+            numberOfApprovers++;
+        }
     }
 
     function createRequest(string memory description, uint value, address recipient) 
@@ -67,10 +70,16 @@ contract Campaign {
 
         require(!request.complete);
         require(request.approvalCount > (numberOfApprovers / 2));
+        require(address(this).balance >= request.value, "Insufficient Balance");
 
         (bool sent,) = request.recipient.call{value: request.value}("");
         require(sent, "Failed to send Ether");
         request.complete = true;
+    }
+
+    function getApprovalCount(uint index) public view returns(uint) {
+        Request storage request = requests[index];
+        return request.approvalCount;
     }
 
     modifier onlyManager() {

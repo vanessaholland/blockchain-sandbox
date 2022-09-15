@@ -4,9 +4,10 @@ pragma solidity ^0.8.16;
 
 contract Lottery {
     address public manager;
-    address payable[] public players;
+    address[] public players;
     uint ticketPrice = .01 ether;
     address public currentWinner;
+    uint public balance;
 
     constructor() {
         manager = msg.sender;
@@ -14,22 +15,21 @@ contract Lottery {
 
     function enter() public payable {
         require(msg.value == .01 ether, "Cost to enter is .01 ether.");
-        players.push(payable(msg.sender));
+        players.push(msg.sender);
     }
 
-    function getPlayers() public view returns(address payable[] memory) {
+    function getPlayers() public view returns(address[] memory) {
         return players;
     }
 
-    function pickWinner() public payable onlyManager {
+    function pickWinner() public onlyManager {
         uint index = randomNumber() % players.length;
+        currentWinner = players[index];
 
         (bool sent,) = players[index].call{value: address(this).balance}("");
         require(sent, "Failed to send Ether");
 
-        currentWinner = players[index];
-
-        players = new address payable[](0);
+        players = new address[](0);
     }
 
     function randomNumber() public view returns(uint) {
