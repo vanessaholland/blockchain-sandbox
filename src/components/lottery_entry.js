@@ -1,5 +1,5 @@
 import { React, Component } from "react";
-import web3 from "../../ethereum/web3";
+import web3 from "../web3";
 import Button from 'react-bootstrap/Button';
 import Form from 'react-bootstrap/Form';
 

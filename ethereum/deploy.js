@@ -23,7 +23,7 @@ const deploy = async () => {
         let arguments = [];
         if (contractName == "Campaign") arguments = [100, accounts[0]];
         
-        fs.writeFile(`./ethereum/build/interface/${contractName}-abi.js`, 
+        fs.writeFile(`../src/build/interface/${contractName}-abi.js`, 
         `const abi = ${JSON.stringify(abi)}; export default abi;`, 
             function (err) {
                 if (err) throw err;
@@ -33,7 +33,7 @@ const deploy = async () => {
         .deploy({ data: evm, arguments: arguments })
         .send({ from: accounts[0], gas: '3000000' });
 
-        fs.writeFile(`./ethereum/build/address/${contractName}-address.js`,
+        fs.writeFile(`../src/build/address/${contractName}-address.js`,
         `const address = '${deployedContract.options.address}'; export default address;`,
             function (err) {
                 if (err) throw err;
